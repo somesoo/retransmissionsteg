@@ -7,13 +7,12 @@ o = code['O']
 d = code['D']
 i = code['I']
 j = code['J']
-print(type(o))
 print(o, d, i, j)
 
 stegand_cap = scapy.all.rdpcap('stegand.pcap')
 stegand_packets = [pac for pac in stegand_cap if pac.haslayer(scapy.all.TCP)]
 steg = [pac for pac in stegand_packets if pac.haslayer(scapy.all.Ether) and pac.dst.lower() == "ac:19:8e:c7:60:a0"]
-print(len(steg))
+#print(len(steg))
 steg.sort()
 
 seqNrs = []
@@ -26,19 +25,12 @@ for packet in steg:
     elif packet.seq not in seqRet:
         seqRet.append(packet.seq)
 
-print(len(seqNrs))
-print(len(seqRet))
+#print(len(seqNrs))
+#print(len(seqRet))
 seqNrs.sort()
 
 binary_rep = []
-
-# retransmited.append(seqNrs[O+D*i])
-# retransmited.append(seqNrs[O+D*i+I])
-# retransmited.append(seqNrs[O+D*i+I+J])
-# '0', '1', '1', '0', '0', '0', '0', '1', '0', '1', '1', '0', '1', '1', '0', '1', '0', '1', '1', '0', '0', '1', '0', '1', '0', '1', '1', '1', '0', '0', '1', '0', '0', '1', '1', '1', '1', '0', '0', '1', '0', '1', '1', '0', '1', '0', '1', '1', '0', '1', '1', '0', '0', '0', '0', '1'
-
-#133865316
-print(seqNrs[1*d+o])
+#print(seqNrs[1*d+o])
 if seqNrs[1*d+o] in seqRet:
     print(1)
 for u in range(len(seqNrs) // d-1):
